@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Egypt Market</title>
+{% endblock title %}
+
+{% block css %}
+<link href="{% static 'css/view_cart_items.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+<h1 style="color: darkcyan;text-align: center;">My Cart</h1><br>
+{% if products_list %}
+<table style="width:100%">
+    <tr>
+      <th>name</th>
+      <th>price</th>
+      <th>left in stock</th>
+      <th>ordered quantity</th>
+      <th>description</th>
+      <th>Delete</th>
+    </tr>
+    {% for product in products_list %}
+    <tr>
+      <td>{{ product.name }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.quantity }}</td>
+      <td><input name="ordered_quantity" value="1" min="1" max="{{ product.quantity }}" step="1" value="ordered_quantity" type="number" oninput="validity.valid||(value='');"/></td>
+      <td>{{ product.description }}</td>
+      <td>
+        <a href="{% url 'delete_cart_item' product.id %}">
+        <span class="glyphicon glyphicon-trash"></span></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table><br>
+  <div class="total-price">
+    <p>Total Price: <span style="font-weight: bold;">{{ total }} EGP</span></p>
+  </div>
+  <div style="text-align:center">
+    <a href="{% url 'recalculate_total_price' %}"><button class="btn btn-primary">Re-calculate Total</button></a></p>
+<a href="{% url 'make_order' total %}" style="color: white;text-decoration: none;"><button class="btn btn-success">Order Now</button></a>
+  </div>
+{% else %}
+<h1 style="text-align: center;">No Items In Cart</h1>
+{% endif %}
+{% endblock content %}

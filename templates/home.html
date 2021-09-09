@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Egypt Market</title>
+{% endblock title %}
+
+{% block css %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+<div class="products-container">
+    {% for product in products %}
+    <div class="product-card">
+        <img src="{{ product.image.url }}" alt="product image" style="width: 70%;">
+        <h1 style="font-size: 25px;color:crimson;">{{ product.name }}</h1>
+        <p class="price">{{ product.price }} EGP</p>
+        <p class="description">{{ product.description }}</p>
+        <p class="quantity" style="color: deeppink;">Quantity:{{ product.quantity }}</p>
+        <p><a href="{% url 'add_to_cart' product.id %}"><button>Add to Cart</button></a></p>
+    </div>
+
+{% endfor %}
+</div><br>
+{% endblock content %}

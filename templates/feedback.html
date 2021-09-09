@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  <title>Feedback</title>
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/feedback.css' %}">
+{% endblock css %}
+
+{% block content %}
+<h2>Feedback</h2>
+<p>Happy to hear from you</p>
+<br>
+<div class="form-container">
+    <form method="POST">
+        {% csrf_token %}
+        <!--{{ form.as_p }}-->
+        <label for="name">Name: </label>
+        <input type="text" placeholder="name" name="name" id="name" required/>
+        <label for="email">Email: </label>
+        <input type="text" placeholder="Your email" name="email" id="email" required/>
+        <label for="feedback">Subject: </label>
+        <textarea placeholder="Type your feedback" name="feedback" id="subject" required></textarea>
+        <input type="submit" value="submit" class="btn btn-primary"/>
+    </form>
+</div>
+{% endblock content %}
