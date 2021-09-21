@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>My Orders</title>
+{% endblock title %}
+
+{% block css %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+
+{% if orders %}
+<h1 style="color: darkcyan;text-align: center;">My Orders</h1><br>
+{% for order in orders %}
+<div style="text-align: center;border-style: outset;border-color: cyan;box-shadow: 0.5rem 0.5rem black, -0.5rem -0.5rem #ccc;">
+    <h1 style="color: royalblue;">Order: {{ forloop.revcounter }}</h1>
+    <h5 style="font-weight: bold;color: blueviolet;">Date: <span style="color:crimson;">{{ order.order_date }}</span></h5>
+    <h5 style="font-weight: bold;color: blueviolet;">Total: <span style="color:crimson;">{{ order.total }}</span> EGP</h5>
+    <h5 style="font-weight: bold;color: blueviolet;">Status: <span style="color:crimson;">{{ order.status }}</span></h5>
+    {% for product in order.products.all %}
+    <h5 style="font-weight: bold;color: blueviolet;">Product: <span style="color:crimson;">{{ product }}</span></h5>
+    {% endfor %}
+    <br>
+</div><br><br>
+{% endfor %}
+{% else %}
+<h1 style="color: darkcyan;text-align: center;">No Orders</h1><br>
+{% endif %}
+{% endblock content %}
