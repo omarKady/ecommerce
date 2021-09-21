@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Egypt Market</title>
+{% endblock title %}
+
+{% block css %}
+<link href="{% static 'css/view_cart_items.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+
+<script>
+  function myFunction() {
+	var qty = document.getElementById('qty').value;
+    var price = document.getElementById('price').innerHTML;
+	var total = 0;
+    total = Number(qty) * Number(price);
+    document.getElementById("total").innerHTML = total;
+}
+</script>
+
+<div style="text-align:center";>
+<h2 style="color: darkcyan;font-family: monospace;font-size: 55px;">Add item to your cart</h2><br>
+<form method="POST">
+    {% csrf_token %}
+    <h5 style="font-size: 20px;color: blueviolet;">{{ product.name }}</h5>
+    <h5 style="font-size: 20px;color: blueviolet;">{{ product.description }}</h5>
+    <h5 style="font-size: 20px;color: blueviolet;">Price: <span id="price" style="color: red;">{{ product.price }}</span></h5>
+    <h5 style="font-size: 20px;color: blueviolet;">Remaining: <span style="color: red;">{{ product.quantity }}</span></h5>
+    <span style="font-weight: bold;color: blueviolet;">Quantity: </span><input id="qty" name="ordered_qty" min="1" max="{{ product.quantity }}" type="number" oninput="validity.valid||(value='');myFunction()" required>
+    <h5 style="font-size: 20px;color: blueviolet;">Total:<span style="color:red;" id="total">0</span></h5>
+    <br><br>
+    <button class="btn btn-primary" type="submit" name="add_item">Add item</button>
+</form>
+</div><br>
+{% endblock content %}

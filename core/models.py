@@ -1,30 +1,24 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models.constraints import UniqueConstraint
-from django.db.models.fields.related import OneToOneField
-from phonenumber_field.modelfields import PhoneNumberField
 from django.utils import timezone
+
 # Create your models here.
 CustomUSer = get_user_model()
 class Customer(models.Model):
     user = models.OneToOneField(CustomUSer, on_delete=models.CASCADE)
-    phone = PhoneNumberField(null=False, blank=False, unique=True)
-    address = models.CharField(max_length=50)
+    address = models.CharField(max_length=500)
 
     @property
     def get_name(self):
         return self.user.first_name+" "+self.user.last_name
-    
     @property
     def get_email(self):
         return self.user.email
-    
     @property
     def get_id(self):
         return self.user.id
-    
     def __str__(self):
-        return self.user.first_name
+        return self.user.first_name+' '+self.user.last_name
 
 class Category(models.Model):
     name = models.CharField(max_length=40)
@@ -54,12 +48,15 @@ class Order(models.Model):
     )
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     order_date = models.DateTimeField(default=timezone.now)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product)
     email = models.CharField(max_length=50,null=True)
     address = models.CharField(max_length=500,null=True)
     mobile = models.CharField(max_length=20,null=True)
     status = models.CharField(max_length=50, null=True, choices=STATUS)
-    ordered_quantity = models.PositiveIntegerField(default=1)
+    total = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'Order {self.id} for Customer {self.customer.user.username}'
 
 
 class Feedback(models.Model):

@@ -23,6 +23,9 @@
       <a class="navbar-brand" style="color:yellow;" href="{% url 'home' %}">Egypt Market</a>
     </div>
     <ul class="nav navbar-nav">
+      {% if user.customer %}
+      <li><a href="{% url 'view_customer_order' %}">Orders</a></li>
+      {% endif %}
       {% if user.is_authenticated %}
       <li><a href="{% url 'logout' %}">Logout</a></li>
       {% else %}

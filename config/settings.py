@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'core',
     # 3rd party
     'crispy_forms',
+    'phonenumber_field',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

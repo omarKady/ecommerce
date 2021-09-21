@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import fields
 from .models import Feedback, Order
 
 class FeedbackForm(forms.ModelForm):
@@ -10,4 +9,4 @@ class FeedbackForm(forms.ModelForm):
 class MakeOrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ('address', 'email', 'mobile', 'status',)
+        fields = ('address', 'email', 'status',)
