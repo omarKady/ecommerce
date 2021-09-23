@@ -40,10 +40,19 @@ INSTALLED_APPS = [
     # Local
     'users',
     'core',
+    'api',
     # 3rd party
     'crispy_forms',
     'phonenumber_field',
+    'rest_framework',
 ]
+'''
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':[
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ]
+}
+'''
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
