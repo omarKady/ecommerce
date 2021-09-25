@@ -182,3 +182,9 @@ def view_customer_order(request):
     customer = Customer.objects.get(user_id=request.user.id)
     customer_orders = Order.objects.filter(customer=customer)
     return render(request, 'view_customer_orders.html', {'orders': customer_orders})
+
+# TODO : Delete cookie and logout
+def logout_and_delete_cookie_view(request):
+    response = redirect('logout')
+    response.delete_cookie('product_ids')
+    return response

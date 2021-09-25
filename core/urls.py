@@ -3,7 +3,7 @@ from .views import (
     home_page_view, about_page_view,
     feedback_page_view, search_products_view, cart_page_view,
     add_to_cart_view, delete_cart_item_view, make_order_view,
-    view_customer_order
+    view_customer_order, logout_and_delete_cookie_view
 )
 
 urlpatterns = [
@@ -16,4 +16,5 @@ urlpatterns = [
     path('delete_cart_item/<int:pk>/', delete_cart_item_view, name='delete_cart_item'),
     path('make_order/<int:total>', make_order_view, name='make_order'),
     path('orders/', view_customer_order, name='view_customer_order'),
+    path('logout_and_delete_cookie/', logout_and_delete_cookie_view, name='logout_and_delete_cookie'),
 ]
